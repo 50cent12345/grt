@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès à la caméra</title>
+    <style>
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Accéder à la caméra</h1>
+    <video id="video" autoplay></video>
+    <script>
+        // Demande d'accès à la caméra
+        const video = document.getElementById('video');
+        
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                })
+                .catch(err => {
+                    console.error("Erreur d'accès à la caméra :", err);
+                    alert("Impossible d'accéder à la caméra. Vérifiez vos autorisations.");
+                });
+        } else {
+            alert("La caméra n'est pas prise en charge sur ce navigateur.");
+        }
+    </script>
+</body>
+</html>
